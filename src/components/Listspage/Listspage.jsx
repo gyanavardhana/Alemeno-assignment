@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { courses } from "../../store/data";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Course = ({ courses }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,7 +17,7 @@ const Course = ({ courses }) => {
   };
 
   return (
-    <div className="max-h-96 overflow-y-scroll">
+    <div className="max-h-96 ">
       <input
         type="text"
         className="w-full border border-gray-300 rounded-md p-2 mb-4"
@@ -43,6 +43,7 @@ const Course = ({ courses }) => {
 };
 
 const CourseList = () => {
+  const courses = useSelector((state) => state.course.courses);
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Courses</h1>

@@ -1,18 +1,14 @@
 import React, { useState } from "react";
 import Dashboard from "./Dashboard";
-import { enrolled } from "../../store/data";
+import { useDispatch, useSelector } from "react-redux";
+import { MarkComplete } from "../../store/enrolledSlice";
 
 const StudentDashboard = () => {
-  const [enrolledCourses, setEnrolledCourses] = useState(enrolled);
+  const enrolledCourses = useSelector((state) => state.enrolled.enrolledCourses)
+  const dispatch = useDispatch();
 
   const handleMarkComplete = (courseId) => {
-    setEnrolledCourses((courses) =>
-      courses.map((course) =>
-        course.id === courseId
-          ? { ...course, status: course.status === "Completed" ? "In Progress" : "Completed" }
-          : course
-      )
-    );
+    dispatch(MarkComplete(courseId));
   };
 
   return (

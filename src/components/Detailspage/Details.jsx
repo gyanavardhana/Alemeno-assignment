@@ -1,4 +1,3 @@
-// src/components/Details.js
 import React, { useState } from 'react';
 
 const Details = ({ course }) => {
@@ -14,22 +13,22 @@ const Details = ({ course }) => {
   return (
     <div className="max-w-3xl mx-auto mt-8 p-6 border border-gray-300 rounded-lg bg-white shadow-xl">
       <h2 className="text-3xl font-bold mb-4 text-gray-900">{course.name}</h2>
-      <p className="mb-2 text-gray-700">
+      <p className="mb-4 text-gray-700">
         <strong>Instructor:</strong> {course.instructor}
       </p>
-      <p className="mb-2 text-gray-700">
+      <p className="mb-4 text-gray-700">
         <strong>Description:</strong> {course.description}
       </p>
-      <p className="mb-2 text-gray-700">
+      <p className="mb-4 text-gray-700">
         <strong>Enrollment Status:</strong> {course.enrollmentStatus}
       </p>
-      <p className="mb-2 text-gray-700">
+      <p className="mb-4 text-gray-700">
         <strong>Duration:</strong> {course.duration}
       </p>
-      <p className="mb-2 text-gray-700">
+      <p className="mb-4 text-gray-700">
         <strong>Schedule:</strong> {course.schedule}
       </p>
-      <p className="mb-2 text-gray-700">
+      <p className="mb-4 text-gray-700">
         <strong>Location:</strong> {course.location}
       </p>
       <div className="mb-4">

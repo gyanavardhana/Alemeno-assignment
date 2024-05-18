@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useSelector} from 'react-redux';
+import Navbar from '../Navbar';
 import Details from './Details';
 
 
@@ -10,9 +11,13 @@ const CourseDetails = () => {
   );
 
   return (
-    <div className="container mx-auto p-4 bg-gradient-to-r from-blue-50 to-blue-100 min-h-screen flex items-center justify-center">
+    <>
+      <Navbar />
+      <div className="container mx-auto p-4 bg-gradient-to-r from-blue-50 to-blue-100 min-h-screen flex items-center justify-center">
       <Details course={course} />
     </div>
+    </>
+
   );
 };
 

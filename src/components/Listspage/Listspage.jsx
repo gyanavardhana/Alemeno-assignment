@@ -1,10 +1,18 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { FaHeart } from "react-icons/fa"; // Importing the heart icon from react-icons
+import NavBar from "../Navbar";
+import { likeCourseAsync } from "../../store/courseSlice";
 
 const Course = ({ courses }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLikeClick = (courseId) => {
+    dispatch(likeCourseAsync(courseId));
+  }
 
   const filteredCourses = courses.filter(
     (course) =>
@@ -17,7 +25,7 @@ const Course = ({ courses }) => {
   };
 
   return (
-    <div className="max-h-96 ">
+    <div className="max-h-96 mt-10">
       <input
         type="text"
         className="w-full border border-gray-300 rounded-md p-2 mb-4"
@@ -29,12 +37,25 @@ const Course = ({ courses }) => {
         {filteredCourses.map((course, index) => (
           <li
             key={course.id}
-            className="border border-gray-300 rounded-md p-4 cursor-pointer hover:bg-gray-100 mb-2"
+            className={`relative border-l-4 p-4 mb-4 rounded-md cursor-pointer transition-all duration-200 hover:shadow-lg
+              ${index % 2 === 0 ? 'border-blue-500 bg-blue-100 hover:bg-blue-200' : 'border-green-500 bg-green-100 hover:bg-green-200'}`}
           >
-            <h3 className="font-bold">{course.name}</h3>
-            <p>Instructor: {course.instructor}</p>
-            <p>Description: {course.description}</p>
-            <button onClick={() => handleClick(course.id)}>View Details</button>
+            <h3 className="font-bold text-lg text-gray-800">{course.name}</h3>
+            <p className="text-gray-600">Instructor: {course.instructor}</p>
+            <p className="text-gray-600">Description: {course.description}</p>
+            <p className="text-gray-600">Number of Likes: {course.likes}</p>
+            <button
+              onClick={() => handleClick(course.id)}
+              className="mt-2 px-4 py-2 bg-gray-800 text-white rounded-full hover:bg-gray-900 transition-colors"
+            >
+              View Details
+            </button>
+            <button
+              onClick={() => handleLikeClick(course.id)}
+              className="mt-2 ml-2 px-4 py-3 bg-gray-800 text-white rounded-full hover:bg-gray-900 transition-colors"
+            >
+              <FaHeart className="text-red-500"/>
+            </button>
           </li>
         ))}
       </ul>
@@ -45,10 +66,13 @@ const Course = ({ courses }) => {
 const CourseList = () => {
   const courses = useSelector((state) => state.course.courses);
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Courses</h1>
-      <Course courses={courses} />
-    </div>
+    <>
+      <NavBar />
+      <div className="container mx-auto p-4">
+        <h1 className="text-2xl font-bold mb-4 text-gray-800">Courses</h1>
+        <Course courses={courses} />
+      </div>
+    </>
   );
 };
 

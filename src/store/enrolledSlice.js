@@ -1,23 +1,45 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { enrolled } from "./data";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const initialState = {
-    enrolledCourses: enrolled,
+  enrolledCourses: [],
+  status: 'idle',
+  error: null,
 };
 
-const enrolledSlice = createSlice({
-    name: "enrolled",
-    initialState,
-    reducers: {
-        MarkComplete(state, action) {
-            state.enrolledCourses = state.enrolledCourses.map((course) =>
-                course.id === action.payload ? { ...course, status: course.status === "Completed" ? "In Progress" : "Completed" } : course
-            );
-        },
-    },
+export const fetchEnrolledCourses = createAsyncThunk('enrolled/fetchEnrolledCourses', async () => {
+  const response = await axios.get('https://alemeno-api.onrender.com/enrolledcourses');
+  return response.data;
 });
 
+export const markCompleteAsync = createAsyncThunk('enrolled/markComplete', async (courseId) => {
+  await axios.patch(`https://alemeno-api.onrender.com/enrolledcourses/${courseId}`, { status: 'Completed' });
+  return courseId;
+});
 
-export const { MarkComplete } = enrolledSlice.actions;
+const enrolledSlice = createSlice({
+  name: 'enrolled',
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchEnrolledCourses.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchEnrolledCourses.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.enrolledCourses = action.payload;
+      })
+      .addCase(fetchEnrolledCourses.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(markCompleteAsync.fulfilled, (state, action) => {
+        state.enrolledCourses = state.enrolledCourses.map((course) =>
+          course.id === action.payload ? { ...course, status: 'Completed' } : course
+        );
+      });
+  },
+});
 
 export default enrolledSlice.reducer;

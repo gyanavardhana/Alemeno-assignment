@@ -50,7 +50,9 @@ This project is a web application for managing courses, allowing users to view a
 *The detailed information about a selected course.*
 
 ### Student Dashboard
-![image](https://github.com/gyanavardhana/Alemeno-assignment/assets/89439095/13cf07ba-a71e-41a9-bd02-6c89deefeed7)
+![image](https://github.com/gyanavardhana/Alemeno-assignment/assets/89439095/5a969eac-c091-478b-b3a7-d58a460db1ab)
+
+![image](https://github.com/gyanavardhana/Alemeno-assignment/assets/89439095/3b34a455-f550-40ce-9379-ac319f3afb50)
 
 *The student dashboard displaying enrolled courses.*
 

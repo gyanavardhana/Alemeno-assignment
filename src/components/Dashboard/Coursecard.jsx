@@ -1,13 +1,15 @@
 import React from "react";
+import { format } from 'date-fns';
 
 const CourseCard = ({ course, onMarkComplete }) => {
+  const formattedDate = format(new Date(course.dueDate), 'MMMM d, yyyy');
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow-md mb-4">
       <div className="p-4">
         <h3 className="text-lg font-semibold text-gray-800 mb-2">{course.name}</h3>
         <p className="text-sm text-gray-600 mb-2">Instructor: {course.instructorName}</p>
         <img src={course.thumbnail} alt="Course Thumbnail" className="w-full h-auto mb-2 rounded-md shadow" />
-        <p className="text-sm text-gray-600 mb-2">Due Date: {course.dueDate}</p>
+        <p className="text-sm text-gray-600 mb-2">Due Date: {formattedDate}</p>
         <div className="bg-gray-200 h-4 rounded-md overflow-hidden mb-2">
           { course.status === "Completed" ? (
             <div className="bg-green-500 h-full"></div>

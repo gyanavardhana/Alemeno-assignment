@@ -8,12 +8,12 @@ const initialState = {
 };
 
 export const fetchEnrolledCourses = createAsyncThunk('enrolled/fetchEnrolledCourses', async () => {
-  const response = await axios.get('https://alemeno-api.onrender.com/enrolledcourses');
+  const response = await axios.get('https://alemenoapi-mbbnl6nt.b4a.run/enrolledcourses');
   return response.data;
 });
 
 export const markCompleteAsync = createAsyncThunk('enrolled/markComplete', async (courseId) => {
-  await axios.patch(`https://alemeno-api.onrender.com/enrolledcourses/${courseId}`, { status: 'Completed' });
+  await axios.patch(`https://alemenoapi-mbbnl6nt.b4a.run/enrolledcourses/${courseId}`, { status: 'Completed' });
   return courseId;
 });
 

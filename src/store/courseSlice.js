@@ -8,12 +8,12 @@ const initialState = {
 };
 
 export const fetchCourses = createAsyncThunk('course/fetchCourses', async () => {
-  const response = await axios.get('https://alemeno-api.onrender.com/courses');
+  const response = await axios.get('https://alemenoapi-mbbnl6nt.b4a.run/courses');
   return response.data;
 });
 
 export const likeCourseAsync = createAsyncThunk('course/likeCourse', async (courseId) => {
-  await axios.patch(`https://alemeno-api.onrender.com/courses/${courseId}`, { likes: 1 });
+  await axios.patch(`https://alemenoapi-mbbnl6nt.b4a.run/courses/${courseId}`, { likes: 1 });
   return courseId;
 });
 
